@@ -51,21 +51,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "TestRequest",
-			"id": "91e29cd2-4b8f-4223-90c1-6bc31980b83c",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
 		}
 	]
 }
