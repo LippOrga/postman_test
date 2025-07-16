@@ -1,9 +1,6 @@
 name: Azure Function CI/CD mit Staging Integrationstests
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch: # Ermöglicht manuelles Auslösen
 
 env:
