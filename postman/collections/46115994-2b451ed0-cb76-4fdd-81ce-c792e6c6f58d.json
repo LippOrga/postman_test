@@ -6,6 +6,52 @@
 	},
 	"item": [
 		{
+			"name": "QuerySoftwareManual_Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0b27981-21a9-431e-9905-60bc2dfab707",
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "46115994-e87ba832-f45b-4ffa-9721-55e6eb5d346b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"Was ist RCC?\",\r\n  \"userId\": \"test-user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseApiAdress}}api/v1/querySoftwareManual",
+					"host": [
+						"{{baseApiAdress}}api"
+					],
+					"path": [
+						"v1",
+						"querySoftwareManual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "TestRequest",
 			"id": "46115994-f48f9078-e927-4afc-8e37-6d8f07ccea17",
 			"protocolProfileBehavior": {
