@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "46115994-6919d40c-4081-4642-a0bf-7bf30213f493",
+		"name": "TestCollection2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "QuerySoftwareManual_Valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0b27981-21a9-431e-9905-60bc2dfab707",
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "46115994-1f78acf0-37c0-427f-b9be-9874fe99135e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"Was ist RCC?\",\r\n  \"userId\": \"test-user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseApiAdress}}api/v1/querySoftwareManual",
+					"host": [
+						"{{baseApiAdress}}api"
+					],
+					"path": [
+						"v1",
+						"querySoftwareManual"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
