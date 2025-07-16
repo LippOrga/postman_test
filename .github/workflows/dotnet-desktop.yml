@@ -18,68 +18,15 @@ jobs:
 #
 # ---- Ab hier relevant
 #
-  integration_tests:
-    needs: build_and_deploy # Stellt sicher, dass Integrationstests nur nach erfolgreicher Bereitstellung ausgeführt werden
+  integration-tests:
     runs-on: ubuntu-latest
-    environment: Staging # Verknüpfung mit der Staging-Umgebung
     steps:
-      - name: Repository auschecken (für Postman Collection)
-        uses: actions/checkout@v4
-
-      - name: Azure Login (zum Abrufen von Slot-Details)
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        # Ein erneutes Login ist notwendig, wenn dies ein separater Job ist, um authentifizierte Azure CLI-Befehle sicherzustellen.
-
-      - name: Staging Slot URL abrufen
-        id: get_slot_url
+      - uses: actions/checkout@v4
+      - name: Install Postman CLI
         run: |
-          SLOT_URL=$(az functionapp config hostname list \
-            --name ${{ env.AZURE_FUNCTIONAPP_NAME }} \
-            --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-            --slot ${{ env.STAGING_SLOT_NAME }} \
-            --query ".name" -o tsv)
-          echo "Staging Slot URL: $SLOT_URL"
-          echo "FUNCTION_APP_URL=$SLOT_URL" >> $GITHUB_ENV
-          # Das dynamische Abrufen der URL ist entscheidend für robuste Pipelines, da Staging-Slot-URLs von Natur aus dynamisch sind.
-          # Die Verwendung von $GITHUB_ENV setzt eine Umgebungsvariable für nachfolgende Schritte im selben Job.[22, 25]
-
-      - name: Funktionsschlüssel abrufen (falls erforderlich)
-        id: get_function_key
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
         run: |
-          # Ersetzen Sie 'MyHttpTriggerFunction' durch den tatsächlichen Namen Ihrer HTTP-getriggerten Funktion
-          FUNCTION_KEY=$(az functionapp function keys list \
-            --name ${{ env.AZURE_FUNCTIONAPP_NAME }} \
-            --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
-            --function-name MyHttpTriggerFunction \
-            --slot ${{ env.STAGING_SLOT_NAME }} \
-            --query "default" -o tsv)
-          echo "FUNCTION_KEY=$FUNCTION_KEY" >> $GITHUB_ENV
-          echo "::add-mask::$FUNCTION_KEY" # Den Schlüssel in den Protokollen zur Sicherheit maskieren [23]
-          # Das sichere Abrufen und Maskieren des Funktionsschlüssels ist für autorisierte Funktionen unerlässlich.
-
-      - name: Newman installieren
-        run: npm install -g newman
-
-      - name: Postman Collection Integrationstests ausführen
-        uses: matt-ball/newman-action@v1 # Oder SimonScholz/postman-newman-action@main [5, 6, 7]
-        with:
-          collection: './postman/collections/your-function-collection.json' # Pfad zu Ihrer Postman Collection
-          environment: './postman/environments/your-env.json' # Optional: Pfad zu Ihrer Postman Umgebung
-          # Dynamische Variablen an Newman übergeben
-          envVar: |
-           
-          reporters: cli,htmlextra # Beispiel-Reporter [6, 7]
-          # Für den htmlextra-Reporter müssen Sie ihn möglicherweise installieren: npm install -g newman-reporter-htmlextra
-          # Die Verwendung von envVar zum direkten Injizieren der dynamischen URL und des Schlüssels in Newman ist eine effektive Methode,
-          # um laufzeitspezifische Werte an das Testwerkzeug zu übergeben.
-
-      - name: Testergebnisse hochladen (HTML-Bericht)
-        uses: actions/upload-artifact@v4
-        if: always() # Hochladen auch bei Testfehlern
-        with:
-          name: newman-html-report
-          path: newman # Standard-Ausgabeordner für den htmlextra-Reporter
+          postman collection run "46115994-be4f23fa-a10d-4239-8fab-dbf7445d0de9" -e "46115994-6e2cd663-b422-4c2e-a959-3ad4b877b4df" --integration-id "179275-${{ github.run_id }}"
