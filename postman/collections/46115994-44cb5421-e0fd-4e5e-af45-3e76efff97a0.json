@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "46115994-44cb5421-e0fd-4e5e-af45-3e76efff97a0",
+		"name": "QuerySoftwareManualTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "QuerySoftwareManual_Valid_ReturnsOk",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0b27981-21a9-431e-9905-60bc2dfab707",
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "46115994-dd682bd1-d616-4a2a-9e1a-4cdc8a40ad25",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"Was ist RCC? Nutze deine Tools.\",\r\n  \"userId\": \"test-user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseApiAdress}}api/v1/querySoftwareManual",
+					"host": [
+						"{{baseApiAdress}}api"
+					],
+					"path": [
+						"v1",
+						"querySoftwareManual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QuerySoftwareManual_Empty_ReturnsBad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a983fbfd-2da4-468a-931e-c268f5661585",
+						"exec": [
+							"pm.test(\"Check if the response is a bad response\", function () {\r",
+							"    pm.response.to.have.status(400); // Assuming a bad response is indicated by 400 status code\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "46115994-b7036539-27a8-4792-9b14-2ba1fddb8af8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"\",\r\n  \"userId\": \"test-user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseApiAdress}}api/v1/querySoftwareManual",
+					"host": [
+						"{{baseApiAdress}}api"
+					],
+					"path": [
+						"v1",
+						"querySoftwareManual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QuerySoftwareManual_WhiteSpace_ReturnsBad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1cbdefe-215b-49cd-9441-6263c93da7f1",
+						"exec": [
+							"pm.test(\"Check if the response is a bad response\", function () {\r",
+							"    pm.response.to.have.status(400); // Assuming a bad response is indicated by 400 status code\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "46115994-8c129770-2dab-4e3b-b8f4-eb8abc795b67",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"   \",\r\n  \"userId\": \"test-user\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseApiAdress}}api/v1/querySoftwareManual",
+					"host": [
+						"{{baseApiAdress}}api"
+					],
+					"path": [
+						"v1",
+						"querySoftwareManual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QuerySoftwareManual_NoUserId_ReturnsBad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "79c51e9c-a350-4e1b-9d41-a80c0e867ec9",
+						"exec": [
+							"pm.test(\"Check if the response is a bad response\", function () {\r",
+							"    pm.response.to.have.status(400); // Assuming a bad response is indicated by 400 status code\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "46115994-af4467f3-79de-4fda-b380-8916844ef236",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"Was ist RCC?\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseApiAdress}}api/v1/querySoftwareManual",
+					"host": [
+						"{{baseApiAdress}}api"
+					],
+					"path": [
+						"v1",
+						"querySoftwareManual"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QuerySoftwareManual_WrongKey_ReturnsBad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "79c51e9c-a350-4e1b-9d41-a80c0e867ec9",
+						"exec": [
+							"pm.test(\"Check if the response is a bad response\", function () {\r",
+							"    pm.response.to.have.status(400); // Assuming a bad response is indicated by 400 status code\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "46115994-8361a372-bf87-4cd5-bd28-8eb0d49585fd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"Was ist RCC?\",\r\n  \"wrong\": \"test-user\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseApiAdress}}api/v1/querySoftwareManual",
+					"host": [
+						"{{baseApiAdress}}api"
+					],
+					"path": [
+						"v1",
+						"querySoftwareManual"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
