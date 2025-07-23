@@ -31,7 +31,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"question\": \"Was ist RCC? Nutze deine Tools.\",\r\n  \"userId\": \"test-user\"\r\n}",
+					"raw": "{\r\n  \"question\": \"Was ist eine Webdoku?\",\r\n  \"userId\": \"test-user\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
