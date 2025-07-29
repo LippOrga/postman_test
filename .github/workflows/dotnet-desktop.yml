@@ -19,6 +19,7 @@ jobs:
 # ---- Ab hier relevant
 #
   automated-api-tests:
+    needs: build_and_deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
