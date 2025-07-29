@@ -5,6 +5,7 @@ on:
 
 env:
   TEST_VAR: 'test123'
+  STATUS: '"Running"'
 
 jobs:
   automated-api-tests:
@@ -13,4 +14,4 @@ jobs:
      - name: teststes
        run: |
         echo $TEST_VAR {{ $TEST_VAR }}
-        echo ""test""
+        echo $STATUS
