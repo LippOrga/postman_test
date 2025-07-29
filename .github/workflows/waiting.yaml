@@ -1,0 +1,18 @@
+name: wait for azure function
+
+on:
+  workflow_dispatch: # Ermöglicht manuelles Auslösen
+
+jobs:
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Wait for Function with retry
+       uses: nick-fields/retry@v2
+       with:
+         timeout_minutes: 5
+         max_attempts: 20
+         retry_wait_seconds: 15
+         command: |
+           echo "Teste Function Erreichbarkeit..."
+           curl -f -s --max-time 30 "https://roesbergai-prod-func-enh4b3g7aah7b8ab.germanywestcentral-01.azurewebsites.net/api/v1/querySoftwareManual?code={{ secrets.AZURE_FUNCTION_KEY }}"
