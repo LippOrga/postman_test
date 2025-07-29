@@ -13,5 +13,10 @@ jobs:
     steps:
      - name: teststes
        run: |
+        running_status='"Running"'
         echo $TEST_VAR {{ $TEST_VAR }}
         echo $STATUS
+        echo $running_status
+        if [ $running_status = $STATUS ]; then
+          echo success
+        fi
